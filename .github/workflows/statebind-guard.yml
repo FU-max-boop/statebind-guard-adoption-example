@@ -1,0 +1,43 @@
+name: statebind-guard
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  adoption-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run focused test
+        run: python -m unittest tests.test_demo.DemoTests.test_resume_selector
+      - id: statebind
+        uses: FU-max-boop/statebind-guard@v0.1.13
+        with:
+          handoff: HANDOFF.md
+          statebind-json: statebind.json
+          policy: .statebind-policy.json
+          fail-on: warning
+      - name: Assert StateBind outputs
+        env:
+          STATEBIND_PASSED: ${{ steps.statebind.outputs.passed }}
+          STATEBIND_ERRORS: ${{ steps.statebind.outputs.errors }}
+          STATEBIND_WARNINGS: ${{ steps.statebind.outputs.warnings }}
+          STATEBIND_EXIT_CODE: ${{ steps.statebind.outputs.exit_code }}
+        run: |
+          test "$STATEBIND_PASSED" = "true"
+          test "$STATEBIND_ERRORS" = "0"
+          test "$STATEBIND_WARNINGS" = "0"
+          test "$STATEBIND_EXIT_CODE" = "0"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: statebind-validation
+          path: |
+            statebind-validation.json
+            statebind-validation.sarif
+            statebind-summary.md
+            statebind-report.html
