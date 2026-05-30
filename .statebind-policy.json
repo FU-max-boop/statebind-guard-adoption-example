@@ -1,0 +1,12 @@
+{
+  "schema_version": "0.1",
+  "preset": "bugfix",
+  "description": "Require the focused failing test and exact next command for bug-fix handoffs.",
+  "required_roles": [
+    "failing_test",
+    "next_command"
+  ],
+  "min_confidence": "medium",
+  "require_top_level_risks": false
+}
+

@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1",
+  "task": {
+    "goal": "Demonstrate StateBind Guard adoption from a separate repository.",
+    "status": "ready for CI validation"
+  },
+  "active_target": {
+    "type": "test",
+    "handle": "python -m unittest tests.test_demo.DemoTests.test_resume_selector",
+    "evidence": "Focused unit test used as the smallest adoption proof.",
+    "confidence": "high"
+  },
+  "bindings": [
+    {
+      "role": "failing_test",
+      "handle": "python -m unittest tests.test_demo.DemoTests.test_resume_selector",
+      "evidence": "Focused validation command for the demo behavior.",
+      "confidence": "high",
+      "risk": ""
+    },
+    {
+      "role": "next_command",
+      "handle": "python -m unittest tests.test_demo.DemoTests.test_resume_selector",
+      "evidence": "Smallest command a resumed agent should run before broader checks.",
+      "confidence": "high",
+      "risk": ""
+    }
+  ],
+  "risks": [
+    "This is a minimal adoption example, not a production application."
+  ],
+  "resume_prompt": "Verify statebind.json, then run the bound next_command before editing.",
+  "raw_signals": {
+    "source": "statebind-guard-adoption-example",
+    "action_ref": "FU-max-boop/statebind-guard@v0.1.13"
+  }
+}
+
