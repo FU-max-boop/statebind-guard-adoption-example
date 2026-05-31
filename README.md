@@ -9,13 +9,14 @@ It proves the released GitHub Action can be consumed from another repository:
 
 ```yaml
 - id: statebind
-  uses: FU-max-boop/statebind-guard@v0.1.13
+  uses: FU-max-boop/statebind-guard@v0.1.38
 ```
 
 ## What This Repo Demonstrates
 
 - A committed `HANDOFF.md` and `statebind.json`.
 - A bug-fix policy generated from the StateBind `bugfix` preset.
+- A standard `.pre-commit-config.yaml` that pins the same public release.
 - A workflow that runs the released StateBind Guard action from a separate repo.
 - A workflow assertion that the action outputs `passed=true`, `errors=0`,
   `warnings=0`, and `exit_code=0`.
@@ -27,11 +28,27 @@ It proves the released GitHub Action can be consumed from another repository:
 python -m unittest discover -s tests
 ```
 
+If StateBind Guard is installed locally:
+
+```bash
+statebind validate statebind.json --repo . --policy .statebind-policy.json --fail-on warning
+statebind doctor --repo . --policy .statebind-policy.json
+```
+
 ## Why This Exists
 
 The main StateBind Guard repository already tests `uses: ./` locally. This repo
 is the separate-repository adoption receipt: it pins a public release, runs the
 published composite action, and asserts the action outputs in CI.
+
+The adoption surface mirrors the one-command bundle produced by:
+
+```bash
+statebind init --goal "Demonstrate StateBind Guard adoption from a separate repository." \
+  --next-command "python -m unittest tests.test_demo.DemoTests.test_resume_selector" \
+  --policy-out .statebind-policy.json \
+  --pre-commit-config .pre-commit-config.yaml
+```
 
 ## StateBind Contract
 
