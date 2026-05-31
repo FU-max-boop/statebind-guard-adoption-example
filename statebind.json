@@ -32,7 +32,6 @@
   "resume_prompt": "Verify statebind.json, then run the bound next_command before editing.",
   "raw_signals": {
     "source": "statebind-guard-adoption-example",
-    "action_ref": "FU-max-boop/statebind-guard@v0.1.13"
+    "action_ref": "FU-max-boop/statebind-guard@v0.1.38"
   }
 }
-
