@@ -15,7 +15,7 @@ jobs:
       - name: Run focused test
         run: python -m unittest tests.test_demo.DemoTests.test_resume_selector
       - id: statebind
-        uses: FU-max-boop/statebind-guard@v0.1.13
+        uses: FU-max-boop/statebind-guard@v0.1.38
         with:
           handoff: HANDOFF.md
           statebind-json: statebind.json
